@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>VVSCLARITY</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * {
       margin: 0;
@@ -18,12 +19,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      padding: 20px;
     }
 
     .container {
-      text-align: center;
       opacity: 0;
       animation: fadeIn 2s ease forwards;
+      width: 100%;
+      max-width: 600px;
     }
 
     h1 {
@@ -63,7 +67,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-wrap: wrap;
       gap: 5px;
+      text-align: center;
     }
 
     .credit a {
@@ -88,6 +94,46 @@
     @keyframes fadeIn {
       to {
         opacity: 1;
+      }
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 3rem;
+        letter-spacing: 6px;
+      }
+
+      .enter-button {
+        font-size: 1rem;
+        padding: 10px 24px;
+        letter-spacing: 2px;
+      }
+
+      .credit {
+        font-size: 0.8rem;
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.2rem;
+        letter-spacing: 4px;
+      }
+
+      .enter-button {
+        width: 100%;
+        font-size: 0.95rem;
+      }
+
+      .credit {
+        font-size: 0.75rem;
+      }
+
+      body {
+        padding: 10px;
       }
     }
   </style>
