@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VVSCLARITY</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background-color: #000;
+      color: white;
+      font-family: 'Helvetica Neue', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    h1 {
+      font-size: 4rem;
+      letter-spacing: 10px;
+      margin-bottom: 30px;
+    }
+
+    .enter-button {
+      display: inline-block;
+      padding: 12px 30px;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 2s;
+      transition: background 0.3s, color 0.3s;
+      margin-bottom: 15px;
+    }
+
+    .enter-button:hover {
+      background: white;
+      color: black;
+    }
+
+    .credit {
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 2.5s;
+      font-size: 0.9rem;
+      color: #aaa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .credit a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .credit a:hover {
+      color: white;
+    }
+
+    .credit svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>VVSCLARITY</h1>
+    <a href="store.html" class="enter-button">Enter Store</a>
+    <div class="credit">
+      <span>Producer —</span>
+      <a href="https://instagram.com/vvsclarity._" target="_blank">
+        <svg viewBox="0 0 448 512">
+          <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9 
+          0 63.6 51.3 114.9 114.9 114.9 
+          63.6 0 114.9-51.3 114.9-114.9 
+          0-63.6-51.3-114.9-114.9-114.9zm0 
+          186.6c-39.6 0-71.7-32.1-71.7-71.7 
+          0-39.6 32.1-71.7 71.7-71.7 
+          39.6 0 71.7 32.1 71.7 71.7 
+          0 39.6-32.1 71.7-71.7 71.7zm146.4-194.3c0 
+          14.9-12.1 27-27 27s-27-12.1-27-27 
+          12.1-27 27-27 27 12.1 27 27zm76.1 
+          27.2c-.1-54.4-44.3-98.5-98.7-98.6H100.2C45.8 
+          62.9 1.7 107 1.6 161.4v189.2c.1 54.4 
+          44.3 98.5 98.7 98.6h189.2c54.4-.1 
+          98.5-44.3 98.6-98.7V161.4zM398.8 
+          350.6c-.1 38.3-31.3 69.5-69.6 
+          69.6H118.7c-38.3-.1-69.5-31.3-69.6-69.6V161.4c.1-38.3 
+          31.3-69.5 69.6-69.6h210.5c38.3.1 
+          69.5 31.3 69.6 69.6v189.2z"/>
+        </svg>
+        Instagram
+      </a>
+    </div>
+  </div>
+</body>
+</html>
