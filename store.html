@@ -213,6 +213,25 @@
         font-size: 0.9rem;
       }
     }
+
+    /* Add this to your existing CSS */
+
+/* Media Queries for iPhone Devices */
+@media (max-width: 768px) {
+  .store-grid {
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 15px;
+  }
+}
+
+/* Optional: You can also target devices smaller than 600px if necessary */
+@media (max-width: 600px) {
+  .store-grid {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
+    gap: 10px;
+  }
+}
+
   </style>
 </head>
 <body>
