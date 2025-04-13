@@ -185,7 +185,7 @@
 
     .visualizer span {
       width: 6px;
-      background: #00ffcc;
+      background: #ffffff;
       border-radius: 4px;
       animation: pulse 1s infinite ease-in-out;
     }
@@ -292,7 +292,53 @@
   animation-play-state: running;
 }
 
-    
+
+    /* ========== GLOW + ANIMATION ENHANCEMENTS ========== */
+
+    h1 {
+      text-shadow: 0 0 15px #ffffff, 0 0 30px #ffffff;
+      animation:   flicker 2s infinite;
+    }
+
+    .beat-card {
+      animation: fadeSlideIn 1s ease-in-out forwards;
+      background: linear-gradient(145deg, #111, #1c1c1c);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .beat-title {
+      text-shadow: 0 0 5px rgb(254, 254, 254), 0 0 10px rgb(245, 245, 245);
+    }
+
+    .price {
+      color: #ffffff;
+      text-shadow: 0 0 5px #ffffff;
+    }
+
+    .paypal-btn {
+      box-shadow: 0 0 10px #444444, 0 0 20px #3a3a3a;
+      animation: pulseGlow 2.5s infinite ease-in-out;
+    }
+
+    .paypal-btn:hover {
+      box-shadow: 0 0 20px #ffffff, 0 0 40px #ffffff;
+    }
+
+    .visualizer span {
+      background: linear-gradient(180deg, rgb(255, 255, 255), rgb(124, 124, 124));
+      box-shadow: 0 0 10px rgb(255, 255, 255);
+    }
+
+
+
+    @keyframes flicker {
+      0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        opacity: 1;
+      }
+      20%, 24%, 55% {
+        opacity: 0.4;
+      }
+    }
 
   </style>
 </head>
@@ -318,9 +364,7 @@
         <audio id="audio1" src="beats/Rexv2 x tdf type beat @vvsclarity @rexv2 148 bpm.mp3" preload="metadata"></audio>
         <div class="audio-controls">
           <button class="play-pause-btn" id="playPause1">▶️</button>
-          <div class="progress-bar" id="progressBar1">
-            <span></span>
-          </div>
+          <div class="progress-bar" id="progressBar1"><span></span></div>
           <input type="range" class="volume-control" id="volumeControl1" min="0" max="1" step="0.1" value="1">
         </div>
       </div>
@@ -342,16 +386,56 @@
 
   <!-- Beat Card 2 -->
   <div class="beat-card">
-    <div class="beat-card-content">
-      <div class="beat-title">Beat #2</div>
-      <div class="audio-player">
-        <audio id="audio2" src="beats/Project_56 @vvsclairty 150bpm.mp3" preload="metadata"></audio>
-        <div class="audio-controls">
-          <button class="play-pause-btn" id="playPause2">▶️</button>
-          <div class="progress-bar" id="progressBar2">
-            <span></span>
+      <div class="visualizer">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="beat-card-content">
+        <div class="beat-title">Beat #2</div>
+        <div class="audio-player">
+          <audio id="audio1" src="beats/Rexv2 x tdf type beat @vvsclarity @rexv2 148 bpm.mp3" preload="metadata"></audio>
+          <div class="audio-controls">
+            <button class="play-pause-btn" id="playPause1">▶️</button>
+            <div class="progress-bar" id="progressBar1"><span></span></div>
+            <input type="range" class="volume-control" id="volumeControl1" min="0" max="1" step="0.1" value="1">
           </div>
-          <input type="range" class="volume-control" id="volumeControl2" min="0" max="1" step="0.1" value="1">
+        </div>
+      </div>
+      <div class="price">$15.00</div>
+      <div class="paypal-btn-container">
+        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+          <input type="hidden" name="cmd" value="_xclick">
+          <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
+          <input type="hidden" name="item_name" value="Beat #1"> 
+          <input type="hidden" name="amount" value="00.01"> 
+          <input type="hidden" name="currency_code" value="USD"> 
+          <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
+          <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
+          <button type="submit" class="paypal-btn">Buy Now</button> 
+        </form>
+      </div>
+    </div>
+
+  <!-- Beat Card 3 -->
+  <div class="beat-card">
+    <div class="visualizer">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="beat-card-content">
+      <div class="beat-title">Beat #1</div>
+      <div class="audio-player">
+        <audio id="audio1" src="beats/Rexv2 x tdf type beat @vvsclarity @rexv2 148 bpm.mp3" preload="metadata"></audio>
+        <div class="audio-controls">
+          <button class="play-pause-btn" id="playPause1">▶️</button>
+          <div class="progress-bar" id="progressBar1"><span></span></div>
+          <input type="range" class="volume-control" id="volumeControl1" min="0" max="1" step="0.1" value="1">
         </div>
       </div>
     </div>
@@ -360,40 +444,10 @@
       <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
         <input type="hidden" name="cmd" value="_xclick">
         <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
-        <input type="hidden" name="item_name" value="Beat #2"> 
+        <input type="hidden" name="item_name" value="Beat #1"> 
         <input type="hidden" name="amount" value="00.01"> 
         <input type="hidden" name="currency_code" value="USD"> 
-        <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you7295.html">
-        <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
-        <button type="submit" class="paypal-btn">Buy Now</button> 
-      </form>
-    </div>
-  </div>
-
-  <!-- Beat Card 3 -->
-  <div class="beat-card">
-    <div class="beat-card-content">
-      <div class="beat-title">Beat #3</div>
-      <div class="audio-player">
-        <audio id="audio3" src="beats/Project_55 @vvsclarity 136 bpm.mp3" preload="metadata"></audio>
-        <div class="audio-controls">
-          <button class="play-pause-btn" id="playPause3">▶️</button>
-          <div class="progress-bar" id="progressBar3">
-            <span></span>
-          </div>
-          <input type="range" class="volume-control" id="volumeControl3" min="0" max="1" step="0.1" value="1">
-        </div>
-      </div>
-    </div>
-    <div class="price">$25.00</div>
-    <div class="paypal-btn-container">
-      <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-        <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
-        <input type="hidden" name="item_name" value="Beat #3"> 
-        <input type="hidden" name="amount" value="00.01"> 
-        <input type="hidden" name="currency_code" value="USD"> 
-        <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you4943.html">
+        <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
         <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
         <button type="submit" class="paypal-btn">Buy Now</button> 
       </form>
@@ -402,26 +456,31 @@
 
   <!-- Beat Card 4 -->
   <div class="beat-card">
+    <div class="visualizer">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <div class="beat-card-content">
-      <div class="beat-title">Beat #4</div>
+      <div class="beat-title">Beat #1</div>
       <div class="audio-player">
-        <audio id="audio4" src="beats/beat4.mp3" preload="metadata"></audio>
+        <audio id="audio1" src="beats/Rexv2 x tdf type beat @vvsclarity @rexv2 148 bpm.mp3" preload="metadata"></audio>
         <div class="audio-controls">
-          <button class="play-pause-btn" id="playPause4">▶️</button>
-          <div class="progress-bar" id="progressBar4">
-            <span></span>
-          </div>
-          <input type="range" class="volume-control" id="volumeControl4" min="0" max="1" step="0.1" value="1">
+          <button class="play-pause-btn" id="playPause1">▶️</button>
+          <div class="progress-bar" id="progressBar1"><span></span></div>
+          <input type="range" class="volume-control" id="volumeControl1" min="0" max="1" step="0.1" value="1">
         </div>
       </div>
     </div>
-    <div class="price">$18.00</div>
+    <div class="price">$15.00</div>
     <div class="paypal-btn-container">
       <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
         <input type="hidden" name="cmd" value="_xclick">
         <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
-        <input type="hidden" name="item_name" value="Beat #4"> 
-        <input type="hidden" name="amount" value="18.00"> 
+        <input type="hidden" name="item_name" value="Beat #1"> 
+        <input type="hidden" name="amount" value="00.01"> 
         <input type="hidden" name="currency_code" value="USD"> 
         <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
         <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
@@ -432,26 +491,31 @@
 
   <!-- Beat Card 5 -->
   <div class="beat-card">
+    <div class="visualizer">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <div class="beat-card-content">
-      <div class="beat-title">Beat #5</div>
+      <div class="beat-title">Beat #1</div>
       <div class="audio-player">
-        <audio id="audio5" src="beats/beat5.mp3" preload="metadata"></audio>
+        <audio id="audio1" src="beats/Rexv2 x tdf type beat @vvsclarity @rexv2 148 bpm.mp3" preload="metadata"></audio>
         <div class="audio-controls">
-          <button class="play-pause-btn" id="playPause5">▶️</button>
-          <div class="progress-bar" id="progressBar5">
-            <span></span>
-          </div>
-          <input type="range" class="volume-control" id="volumeControl5" min="0" max="1" step="0.1" value="1">
+          <button class="play-pause-btn" id="playPause1">▶️</button>
+          <div class="progress-bar" id="progressBar1"><span></span></div>
+          <input type="range" class="volume-control" id="volumeControl1" min="0" max="1" step="0.1" value="1">
         </div>
       </div>
     </div>
-    <div class="price">$12.00</div>
+    <div class="price">$15.00</div>
     <div class="paypal-btn-container">
       <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
         <input type="hidden" name="cmd" value="_xclick">
         <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
-        <input type="hidden" name="item_name" value="Beat #5"> 
-        <input type="hidden" name="amount" value="12.00"> 
+        <input type="hidden" name="item_name" value="Beat #1"> 
+        <input type="hidden" name="amount" value="00.01"> 
         <input type="hidden" name="currency_code" value="USD"> 
         <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
         <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
@@ -462,26 +526,31 @@
 
   <!-- Beat Card 6 -->
   <div class="beat-card">
+    <div class="visualizer">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <div class="beat-card-content">
-      <div class="beat-title">Beat #6</div>
+      <div class="beat-title">Beat #1</div>
       <div class="audio-player">
-        <audio id="audio6" src="beats/beat6.mp3" preload="metadata"></audio>
+        <audio id="audio1" src="beats/Rexv2 x tdf type beat @vvsclarity @rexv2 148 bpm.mp3" preload="metadata"></audio>
         <div class="audio-controls">
-          <button class="play-pause-btn" id="playPause6">▶️</button>
-          <div class="progress-bar" id="progressBar6">
-            <span></span>
-          </div>
-          <input type="range" class="volume-control" id="volumeControl6" min="0" max="1" step="0.1" value="1">
+          <button class="play-pause-btn" id="playPause1">▶️</button>
+          <div class="progress-bar" id="progressBar1"><span></span></div>
+          <input type="range" class="volume-control" id="volumeControl1" min="0" max="1" step="0.1" value="1">
         </div>
       </div>
     </div>
-    <div class="price">$30.00</div>
+    <div class="price">$15.00</div>
     <div class="paypal-btn-container">
       <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
         <input type="hidden" name="cmd" value="_xclick">
         <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
-        <input type="hidden" name="item_name" value="Beat #6"> 
-        <input type="hidden" name="amount" value="30.00"> 
+        <input type="hidden" name="item_name" value="Beat #1"> 
+        <input type="hidden" name="amount" value="00.01"> 
         <input type="hidden" name="currency_code" value="USD"> 
         <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
         <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
