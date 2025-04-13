@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>VVSCLARITY — Store</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -27,6 +31,7 @@
       font-size: 3rem;
       letter-spacing: 6px;
       margin-bottom: 40px;
+      padding-top: 60px;
     }
 
     .home-btn {
@@ -68,6 +73,8 @@
       height: 380px;
       transition: transform 0.3s, box-shadow 0.3s ease-in-out;
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
     }
 
     .beat-card:hover {
@@ -141,7 +148,7 @@
       text-align: center;
     }
 
-    .paypal-btn-container .paypal-btn {
+    .paypal-btn {
       background-color: #0070ba;
       color: white;
       border: none;
@@ -152,7 +159,7 @@
       transition: background-color 0.3s ease;
     }
 
-    .paypal-btn-container .paypal-btn:hover {
+    .paypal-btn:hover {
       background-color: #005f8d;
     }
 
@@ -163,7 +170,38 @@
       justify-content: space-between;
     }
 
-    /* Media Queries for Smaller Devices */
+    .visualizer {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 6px;
+      align-items: flex-end;
+      justify-content: center;
+      height: 50px;
+      z-index: 1;
+    }
+
+    .visualizer span {
+      width: 6px;
+      background: #00ffcc;
+      border-radius: 4px;
+      animation: pulse 1s infinite ease-in-out;
+    }
+
+    .visualizer span:nth-child(1) { animation-delay: 0s; }
+    .visualizer span:nth-child(2) { animation-delay: 0.1s; }
+    .visualizer span:nth-child(3) { animation-delay: 0.2s; }
+    .visualizer span:nth-child(4) { animation-delay: 0.3s; }
+    .visualizer span:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes pulse {
+      0%, 100% { height: 10px; }
+      50% { height: 50px; }
+    }
+
+    /* Media Queries */
     @media (max-width: 900px) {
       .store-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -214,269 +252,307 @@
       }
     }
 
-    /* Add this to your existing CSS */
+    @media (max-width: 768px) {
+      .store-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+        padding-bottom: 60px;
+      }
 
-/* Media Queries for iPhone Devices */
-@media (max-width: 768px) {
-  .store-grid {
-    grid-template-columns: repeat(2, 1fr); /* Two columns */
-    gap: 15px;
-  }
+      .beat-card {
+        width: 100%;
+        height: 90vh;
+        padding: 25px;
+        justify-content: center;
+        animation: slideUp 0.7s ease-in-out;
+      }
+
+      @keyframes slideUp {
+        0% { opacity: 0; transform: translateY(50px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+
+      .audio-controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .volume-control {
+        width: 100%;
+      }
+    }
+
+    .visualizer span {
+  animation-play-state: paused;
 }
 
-/* Optional: You can also target devices smaller than 600px if necessary */
-@media (max-width: 600px) {
-  .store-grid {
-    grid-template-columns: repeat(2, 1fr); /* Two columns for smaller screens */
-    gap: 10px;
-  }
+.visualizer.active span {
+  animation-play-state: running;
 }
+
+    
 
   </style>
 </head>
-<body>
-  <!-- Home Button -->
+  <body>
   <a href="index.html">
     <button class="home-btn">Home</button>
   </a>
-
-  <h1>VVSCLARITY — Beats Store</h1>
-  <div class="store-grid">
-    <!-- Beat Cards -->
-    <!-- Beat Card 1 -->
-    <div class="beat-card">
-      <div class="beat-card-content">
-        <div class="beat-title">Beat #1</div>
-        <div class="audio-player">
-          <audio id="audio1" src="beats/Rexv2 x tdf type beat @vvsclarity @rexv2 148 bpm.mp3" preload="metadata"></audio>
-          <div class="audio-controls">
-            <button class="play-pause-btn" id="playPause1">▶️</button>
-            <div class="progress-bar" id="progressBar1">
-              <span></span>
-            </div>
-            <input type="range" class="volume-control" id="volumeControl1" min="0" max="1" step="0.1" value="1">
+  <h1>VVS Beats Store</h1>
+<div class="store-grid">
+  <!-- Beat Cards -->
+  <!-- Beat Card 1 -->
+  <div class="beat-card">
+    <div class="visualizer">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="beat-card-content">
+      <div class="beat-title">Beat #1</div>
+      <div class="audio-player">
+        <audio id="audio1" src="beats/Rexv2 x tdf type beat @vvsclarity @rexv2 148 bpm.mp3" preload="metadata"></audio>
+        <div class="audio-controls">
+          <button class="play-pause-btn" id="playPause1">▶️</button>
+          <div class="progress-bar" id="progressBar1">
+            <span></span>
           </div>
+          <input type="range" class="volume-control" id="volumeControl1" min="0" max="1" step="0.1" value="1">
         </div>
       </div>
-      <div class="price">$15.00</div>
-      <div class="paypal-btn-container">
-        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
-          <input type="hidden" name="item_name" value="Beat #1"> 
-          <input type="hidden" name="amount" value="00.01"> 
-          <input type="hidden" name="currency_code" value="USD"> 
-          <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
-          <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
-          <button type="submit" class="paypal-btn">Buy Now</button> 
-        </form>
-      </div>
     </div>
-
-    <!-- Beat Card 2 -->
-    <div class="beat-card">
-      <div class="beat-card-content">
-        <div class="beat-title">Beat #2</div>
-        <div class="audio-player">
-          <audio id="audio2" src="beats/Project_56 @vvsclairty 150bpm.mp3" preload="metadata"></audio>
-          <div class="audio-controls">
-            <button class="play-pause-btn" id="playPause2">▶️</button>
-            <div class="progress-bar" id="progressBar2">
-              <span></span>
-            </div>
-            <input type="range" class="volume-control" id="volumeControl2" min="0" max="1" step="0.1" value="1">
-          </div>
-        </div>
-      </div>
-      <div class="price">$15.00</div>
-      <div class="paypal-btn-container">
-        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
-          <input type="hidden" name="item_name" value="Beat #2"> 
-          <input type="hidden" name="amount" value="00.01"> 
-          <input type="hidden" name="currency_code" value="USD"> 
-          <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you7295.html">
-          <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
-          <button type="submit" class="paypal-btn">Buy Now</button> 
-        </form>
-      </div>
+    <div class="price">$15.00</div>
+    <div class="paypal-btn-container">
+      <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
+        <input type="hidden" name="item_name" value="Beat #1"> 
+        <input type="hidden" name="amount" value="00.01"> 
+        <input type="hidden" name="currency_code" value="USD"> 
+        <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
+        <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
+        <button type="submit" class="paypal-btn">Buy Now</button> 
+      </form>
     </div>
-
-    <!-- Beat Card 3 -->
-    <div class="beat-card">
-      <div class="beat-card-content">
-        <div class="beat-title">Beat #3</div>
-        <div class="audio-player">
-          <audio id="audio3" src="beats/Project_55 @vvsclarity 136 bpm.mp3" preload="metadata"></audio>
-          <div class="audio-controls">
-            <button class="play-pause-btn" id="playPause3">▶️</button>
-            <div class="progress-bar" id="progressBar3">
-              <span></span>
-            </div>
-            <input type="range" class="volume-control" id="volumeControl3" min="0" max="1" step="0.1" value="1">
-          </div>
-        </div>
-      </div>
-      <div class="price">$25.00</div>
-      <div class="paypal-btn-container">
-        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
-          <input type="hidden" name="item_name" value="Beat #3"> 
-          <input type="hidden" name="amount" value="00.01"> 
-          <input type="hidden" name="currency_code" value="USD"> 
-          <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you4943.html">
-          <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
-          <button type="submit" class="paypal-btn">Buy Now</button> 
-        </form>
-      </div>
-    </div>
-
-    <!-- Beat Card 4 -->
-    <div class="beat-card">
-      <div class="beat-card-content">
-        <div class="beat-title">Beat #4</div>
-        <div class="audio-player">
-          <audio id="audio4" src="beats/beat4.mp3" preload="metadata"></audio>
-          <div class="audio-controls">
-            <button class="play-pause-btn" id="playPause4">▶️</button>
-            <div class="progress-bar" id="progressBar4">
-              <span></span>
-            </div>
-            <input type="range" class="volume-control" id="volumeControl4" min="0" max="1" step="0.1" value="1">
-          </div>
-        </div>
-      </div>
-      <div class="price">$18.00</div>
-      <div class="paypal-btn-container">
-        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
-          <input type="hidden" name="item_name" value="Beat #4"> 
-          <input type="hidden" name="amount" value="18.00"> 
-          <input type="hidden" name="currency_code" value="USD"> 
-          <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
-          <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
-          <button type="submit" class="paypal-btn">Buy Now</button> 
-        </form>
-      </div>
-    </div>
-
-    <!-- Beat Card 5 -->
-    <div class="beat-card">
-      <div class="beat-card-content">
-        <div class="beat-title">Beat #5</div>
-        <div class="audio-player">
-          <audio id="audio5" src="beats/beat5.mp3" preload="metadata"></audio>
-          <div class="audio-controls">
-            <button class="play-pause-btn" id="playPause5">▶️</button>
-            <div class="progress-bar" id="progressBar5">
-              <span></span>
-            </div>
-            <input type="range" class="volume-control" id="volumeControl5" min="0" max="1" step="0.1" value="1">
-          </div>
-        </div>
-      </div>
-      <div class="price">$12.00</div>
-      <div class="paypal-btn-container">
-        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
-          <input type="hidden" name="item_name" value="Beat #5"> 
-          <input type="hidden" name="amount" value="12.00"> 
-          <input type="hidden" name="currency_code" value="USD"> 
-          <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
-          <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
-          <button type="submit" class="paypal-btn">Buy Now</button> 
-        </form>
-      </div>
-    </div>
-
-    <!-- Beat Card 6 -->
-    <div class="beat-card">
-      <div class="beat-card-content">
-        <div class="beat-title">Beat #6</div>
-        <div class="audio-player">
-          <audio id="audio6" src="beats/beat6.mp3" preload="metadata"></audio>
-          <div class="audio-controls">
-            <button class="play-pause-btn" id="playPause6">▶️</button>
-            <div class="progress-bar" id="progressBar6">
-              <span></span>
-            </div>
-            <input type="range" class="volume-control" id="volumeControl6" min="0" max="1" step="0.1" value="1">
-          </div>
-        </div>
-      </div>
-      <div class="price">$30.00</div>
-      <div class="paypal-btn-container">
-        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
-          <input type="hidden" name="item_name" value="Beat #6"> 
-          <input type="hidden" name="amount" value="30.00"> 
-          <input type="hidden" name="currency_code" value="USD"> 
-          <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
-          <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
-          <button type="submit" class="paypal-btn">Buy Now</button> 
-        </form>
-      </div>
-    </div>
-
   </div>
 
-  <<script>
-    // Play/Pause button functionality
-    function togglePlayPause(audioElement, button) {
-      if (audioElement.paused) {
-        audioElement.play();
-        button.textContent = "❚❚"; // Change to pause icon
-      } else {
-        audioElement.pause();
-        button.textContent = "▶️"; // Change to play icon
+  <!-- Beat Card 2 -->
+  <div class="beat-card">
+    <div class="beat-card-content">
+      <div class="beat-title">Beat #2</div>
+      <div class="audio-player">
+        <audio id="audio2" src="beats/Project_56 @vvsclairty 150bpm.mp3" preload="metadata"></audio>
+        <div class="audio-controls">
+          <button class="play-pause-btn" id="playPause2">▶️</button>
+          <div class="progress-bar" id="progressBar2">
+            <span></span>
+          </div>
+          <input type="range" class="volume-control" id="volumeControl2" min="0" max="1" step="0.1" value="1">
+        </div>
+      </div>
+    </div>
+    <div class="price">$15.00</div>
+    <div class="paypal-btn-container">
+      <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
+        <input type="hidden" name="item_name" value="Beat #2"> 
+        <input type="hidden" name="amount" value="00.01"> 
+        <input type="hidden" name="currency_code" value="USD"> 
+        <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you7295.html">
+        <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
+        <button type="submit" class="paypal-btn">Buy Now</button> 
+      </form>
+    </div>
+  </div>
+
+  <!-- Beat Card 3 -->
+  <div class="beat-card">
+    <div class="beat-card-content">
+      <div class="beat-title">Beat #3</div>
+      <div class="audio-player">
+        <audio id="audio3" src="beats/Project_55 @vvsclarity 136 bpm.mp3" preload="metadata"></audio>
+        <div class="audio-controls">
+          <button class="play-pause-btn" id="playPause3">▶️</button>
+          <div class="progress-bar" id="progressBar3">
+            <span></span>
+          </div>
+          <input type="range" class="volume-control" id="volumeControl3" min="0" max="1" step="0.1" value="1">
+        </div>
+      </div>
+    </div>
+    <div class="price">$25.00</div>
+    <div class="paypal-btn-container">
+      <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
+        <input type="hidden" name="item_name" value="Beat #3"> 
+        <input type="hidden" name="amount" value="00.01"> 
+        <input type="hidden" name="currency_code" value="USD"> 
+        <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you4943.html">
+        <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
+        <button type="submit" class="paypal-btn">Buy Now</button> 
+      </form>
+    </div>
+  </div>
+
+  <!-- Beat Card 4 -->
+  <div class="beat-card">
+    <div class="beat-card-content">
+      <div class="beat-title">Beat #4</div>
+      <div class="audio-player">
+        <audio id="audio4" src="beats/beat4.mp3" preload="metadata"></audio>
+        <div class="audio-controls">
+          <button class="play-pause-btn" id="playPause4">▶️</button>
+          <div class="progress-bar" id="progressBar4">
+            <span></span>
+          </div>
+          <input type="range" class="volume-control" id="volumeControl4" min="0" max="1" step="0.1" value="1">
+        </div>
+      </div>
+    </div>
+    <div class="price">$18.00</div>
+    <div class="paypal-btn-container">
+      <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
+        <input type="hidden" name="item_name" value="Beat #4"> 
+        <input type="hidden" name="amount" value="18.00"> 
+        <input type="hidden" name="currency_code" value="USD"> 
+        <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
+        <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
+        <button type="submit" class="paypal-btn">Buy Now</button> 
+      </form>
+    </div>
+  </div>
+
+  <!-- Beat Card 5 -->
+  <div class="beat-card">
+    <div class="beat-card-content">
+      <div class="beat-title">Beat #5</div>
+      <div class="audio-player">
+        <audio id="audio5" src="beats/beat5.mp3" preload="metadata"></audio>
+        <div class="audio-controls">
+          <button class="play-pause-btn" id="playPause5">▶️</button>
+          <div class="progress-bar" id="progressBar5">
+            <span></span>
+          </div>
+          <input type="range" class="volume-control" id="volumeControl5" min="0" max="1" step="0.1" value="1">
+        </div>
+      </div>
+    </div>
+    <div class="price">$12.00</div>
+    <div class="paypal-btn-container">
+      <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
+        <input type="hidden" name="item_name" value="Beat #5"> 
+        <input type="hidden" name="amount" value="12.00"> 
+        <input type="hidden" name="currency_code" value="USD"> 
+        <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
+        <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
+        <button type="submit" class="paypal-btn">Buy Now</button> 
+      </form>
+    </div>
+  </div>
+
+  <!-- Beat Card 6 -->
+  <div class="beat-card">
+    <div class="beat-card-content">
+      <div class="beat-title">Beat #6</div>
+      <div class="audio-player">
+        <audio id="audio6" src="beats/beat6.mp3" preload="metadata"></audio>
+        <div class="audio-controls">
+          <button class="play-pause-btn" id="playPause6">▶️</button>
+          <div class="progress-bar" id="progressBar6">
+            <span></span>
+          </div>
+          <input type="range" class="volume-control" id="volumeControl6" min="0" max="1" step="0.1" value="1">
+        </div>
+      </div>
+    </div>
+    <div class="price">$30.00</div>
+    <div class="paypal-btn-container">
+      <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="vincentreyes2007@gmail.com">
+        <input type="hidden" name="item_name" value="Beat #6"> 
+        <input type="hidden" name="amount" value="30.00"> 
+        <input type="hidden" name="currency_code" value="USD"> 
+        <input type="hidden" name="return" value="https://vincewya.github.io/vvsclarity-website/thank-you.html">
+        <input type="hidden" name="notify_url" value="https://vincewya.github.io/vvsclarity-website/paypal-ipn-listener.php">
+        <button type="submit" class="paypal-btn">Buy Now</button> 
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const players = document.querySelectorAll('.audio-player');
+
+  let currentAudio = null;
+
+  players.forEach((player, index) => {
+    const audio = player.querySelector('audio');
+    const playBtn = player.querySelector('.play-pause-btn');
+    const progressBar = player.querySelector('.progress-bar span');
+    const progressContainer = player.querySelector('.progress-bar');
+    const volumeControl = player.querySelector('.volume-control');
+    const visualizer = player.closest('.beat-card').querySelector('.visualizer');
+
+    playBtn.addEventListener('click', () => {
+      // Pause other audios
+      if (currentAudio && currentAudio !== audio) {
+        currentAudio.pause();
+        const prevCard = currentAudio.closest('.beat-card');
+        if (prevCard) {
+          prevCard.querySelector('.play-pause-btn').textContent = '▶️';
+          prevCard.querySelector('.visualizer').classList.remove('active');
+        }
       }
-    }
-  
-    // Update progress bar
-    function updateProgressBar(audioElement, progressBar) {
-      const progress = (audioElement.currentTime / audioElement.duration) * 100;
-      progressBar.querySelector("span").style.width = progress + "%";
-    }
-  
-    // Set volume
-    function setVolume(audioElement, volumeControl) {
-      audioElement.volume = volumeControl.value;
-    }
-  
-    // Add event listeners to each audio element and control buttons
-    function addAudioListeners(num) {
-      const audioElement = document.getElementById('audio' + num);
-      const playPauseButton = document.getElementById('playPause' + num);
-      const progressBar = document.getElementById('progressBar' + num);
-      const volumeControl = document.getElementById('volumeControl' + num);
-  
-      // Play/Pause button
-      playPauseButton.addEventListener('click', function () {
-        togglePlayPause(audioElement, playPauseButton);
-      });
-  
-      // Update progress bar while audio plays
-      audioElement.addEventListener('timeupdate', function () {
-        updateProgressBar(audioElement, progressBar);
-      });
-  
-      // Update volume when slider changes
-      volumeControl.addEventListener('input', function () {
-        setVolume(audioElement, volumeControl);
-      });
-    }
-  
-    // Add listeners for each beat card
-    for (let i = 1; i <= 6; i++) {
-      addAudioListeners(i);
-    }
-  </script>
-  
+
+      if (audio.paused) {
+        audio.play();
+        playBtn.textContent = '⏸️';
+        visualizer.classList.add('active');
+        currentAudio = audio;
+      } else {
+        audio.pause();
+        playBtn.textContent = '▶️';
+        visualizer.classList.remove('active');
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progressBar.style.width = percent + '%';
+    });
+
+    progressContainer.addEventListener('click', (e) => {
+      const clickX = e.offsetX;
+      const width = progressContainer.offsetWidth;
+      const duration = audio.duration;
+
+      audio.currentTime = (clickX / width) * duration;
+    });
+
+    volumeControl.addEventListener('input', () => {
+      audio.volume = volumeControl.value;
+    });
+
+    audio.addEventListener('ended', () => {
+      playBtn.textContent = '▶️';
+      visualizer.classList.remove('active');
+      progressBar.style.width = '0%';
+    });
+  });
+</script>
+
 </body>
 </html>
 <!-- Compare this snippet from thank-you%207%2310%2A.html: -->
